@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{18f91ae9-ab06-4273-bcd7-0ef630c9d3a1}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>test\testSuite.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>
+    </InterpreterId>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="db\createDB.sql" />
+    <Content Include="document\图.vsdx" />
+    <Content Include="document\~%24%24ER图.~vsdx" />
+    <Content Include="document\~%24%24ER图.~vsdx" />
+    <Content Include="document\需求分析.docx" />
+    <Content Include="README.md" />
+    <Content Include="requirements.txt" />
+    <Content Include="resource\大佬.png" />
+    <Content Include="resource\消息.png" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.jdt.core\indexNamesMap.txt" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.jdt.core\javaLikeNames.txt" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.jdt.core\participantsIndexNames.txt" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.jdt.core\savedIndexNames.txt" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes\savedIndexNames.txt" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.jsdt.core\libraries\baseBrowserLibrary.js" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.jsdt.core\libraries\browserWindow.js" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.jsdt.core\libraries\dom5.js" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.jsdt.core\libraries\system.js" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.jsdt.core\libraries\xhr.js" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\logs\localhost_access_log.2018-09-28.txt" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\logs\localhost_access_log.2018-09-29.txt" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\logs\localhost_access_log.2018-10-01.txt" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\logs\localhost_access_log.2018-10-02.txt" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\logs\localhost_access_log.2018-10-03.txt" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\logs\localhost_access_log.2018-10-07.txt" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\logs\localhost_access_log.2018-10-08.txt" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\logs\localhost_access_log.2018-10-09.txt" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\developParser\developParser.js" />
+    <Content Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\showInfo\showInfo.js" />
+    <Content Include="web\.metadata\version.ini" />
+    <Content Include="web\developParser\WebContent\developParser.js" />
+    <Content Include="web\showInfo\WebContent\showInfo.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="bin\WechatPush.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="common\Rule.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="common\User.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="common\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="config.py" />
+    <Compile Include="db\DataBaseOperate.py" />
+    <Compile Include="db\DBOInterface.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="db\MysqlHelper.py" />
+    <Compile Include="db\MysqlOperator.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="db\SqliteHelper.py" />
+    <Compile Include="db\test.py" />
+    <Compile Include="db\__init__.py" />
+    <Compile Include="common\Message.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\testMysqlOperator.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\testHtmlParser.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\testHtmlDownload.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\testMessage.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="common\HtmlDownload.py" />
+    <Compile Include="common\HtmlParser.py" />
+    <Compile Include="bin\InfoCrawl.py" />
+    <Compile Include="test\testUser.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="bin\__init__.py" />
+    <Compile Include="start.py" />
+    <Compile Include="test\testRule.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\testSuite.py" />
+    <Compile Include="test\testWechatPush.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="util\develop.py" />
+    <Compile Include="util\logger.py" />
+    <Compile Include="util\__init__.py" />
+    <Compile Include="__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="db" />
+    <Folder Include="document\" />
+    <Folder Include="common\" />
+    <Folder Include="test\" />
+    <Folder Include="resource\" />
+    <Folder Include="bin\" />
+    <Folder Include="util" />
+    <Folder Include="web\" />
+    <Folder Include="web\.metadata" />
+    <Folder Include="web\.metadata\.plugins\" />
+    <Folder Include="web\.metadata\.plugins\org.eclipse.jdt.core" />
+    <Folder Include="web\.metadata\.plugins\org.eclipse.wst.jsdt.core\" />
+    <Folder Include="web\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes" />
+    <Folder Include="web\.metadata\.plugins\org.eclipse.wst.jsdt.core\libraries" />
+    <Folder Include="web\.metadata\.plugins\org.eclipse.wst.server.core\" />
+    <Folder Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\" />
+    <Folder Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\logs" />
+    <Folder Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\" />
+    <Folder Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\developParser" />
+    <Folder Include="web\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\showInfo" />
+    <Folder Include="web\developParser\" />
+    <Folder Include="web\developParser\WebContent" />
+    <Folder Include="web\showInfo\" />
+    <Folder Include="web\showInfo\WebContent" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>

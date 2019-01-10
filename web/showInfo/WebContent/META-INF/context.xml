@@ -1,0 +1,8 @@
+
+<Context reloadable="true">
+<Resource
+	name="jdbc/infopool"
+	type="javax.sql.DataSource"
+	maxActive="4"
+	maxIdle="2" username="root" maxWait="5000" driverClassName="com.mysql.cj.jdbc.Driver" password="admin" url="jdbc:mysql://127.0.0.1:3306/infopool_test?useSSL=false&amp;characterEncoding=utf8&amp;serverTimezone=GMT"/>
+</Context>
