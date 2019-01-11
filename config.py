@@ -52,6 +52,13 @@ _DB_CONFIG = {
                'password':'admin',
                'db':'infopool_test',
                'type':'mysql'}
+
+    'mysql' : {'host':'123.207.30.13',
+               'port':3306,
+               'user':'root',
+               'password':'!Maizhiling456',
+               'db':'infoPool',
+               'type':'mysql'}
 }
 DB_CONFIG = _DB_CONFIG['mysql_test']
 
