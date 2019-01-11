@@ -51,7 +51,7 @@ _DB_CONFIG = {
                'user':'root',
                'password':'admin',
                'db':'infopool_test',
-               'type':'mysql'}
+               'type':'mysql'},
 
     'mysql' : {'host':'123.207.30.13',
                'port':3306,
@@ -60,7 +60,7 @@ _DB_CONFIG = {
                'db':'infoPool',
                'type':'mysql'}
 }
-DB_CONFIG = _DB_CONFIG['mysql_test']
+DB_CONFIG = _DB_CONFIG['mysql']
 
 WECHAT_CONFIG = {
     'AgentId':'1000002',
