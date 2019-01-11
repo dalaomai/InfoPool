@@ -17,7 +17,7 @@ class WechatPush():
         return
 
     def push(self):
-        users = self.__DBOperator.getUnpushedUsers()
+        users = self.__DBOperator.getUnPushedUsers()
         logger.info("Get " + str(len(users)) + " users to push")
         for user in users:
             for rule in user.getRules():

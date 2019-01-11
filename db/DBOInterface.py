@@ -25,7 +25,7 @@ class DBOInterface():
         pass
 
     @abstractmethod
-    def getUnpushedUsers(self):
+    def getUnPushedUsers(self):
         pass
 
     @abstractmethod

@@ -34,8 +34,8 @@ class DataBaseOperate(DBOInterface):
     def saveRule(self, rules):
         return self.__operator.saveRule(rules)
 
-    def getUnpushedUsers(self):
-        return self.__operator.getUnpushedUsers()
+    def getUnPushedUsers(self):
+        return self.__operator.getUnPushedUsers()
 
     def updateUserLastPushTimeForRule(self,user,rule):
         return self.__operator.updateUserLastPushTimeForRule(user,rule)

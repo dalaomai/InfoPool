@@ -124,10 +124,10 @@ class MysqlOperator(DBOInterface):
             return -1
         return result
 
-    def getUnpushedUsers(self):
+    def getUnPushedUsers(self):
         '''
         '''
-        sql = "select distinct userId, wechatId from Unpushed"
+        sql = "select distinct userId, wechatId from UnPushed"
         cursor = self.db.cursor()
         try:
             results = cursor.execute(sql)
@@ -135,19 +135,19 @@ class MysqlOperator(DBOInterface):
             cursor.close()
         except Exception as e:
             cursor.close()
-            logger.error("Failed to getUnpushedUsers",exc_info=True)
+            logger.error("Failed to getUnPushedUsers",exc_info=True)
             return []
         users = []
         for result in results:
             user = User(id=result[0],wechatId=result[1])
-            self.getUnpushedRulesSaveInUser(user)
+            self.getUnPushedRulesSaveInUser(user)
             users.append(user)
         return users
 
-    def getUnpushedRulesSaveInUser(self,user):
+    def getUnPushedRulesSaveInUser(self,user):
         '''
         '''
-        sql = "select distinct ruleId,webName,webUrl,lastPushTime from Unpushed where userId = " + str(user.id)
+        sql = "select distinct ruleId,webName,webUrl,lastPushTime from UnPushed where userId = " + str(user.id)
         cursor = self.db.cursor()
         try:
             results = cursor.execute(sql)
@@ -155,18 +155,18 @@ class MysqlOperator(DBOInterface):
             cursor.close()
         except Exception as e:
             cursor.close()
-            logger.error("Failed to getUnpushedRulesSaveInUser",exc_info=True)
+            logger.error("Failed to getUnPushedRulesSaveInUser",exc_info=True)
             return -1
         for result in results:
             rule = Rule(id=result[0],webName=result[1],webUrl=result[2],subscribeLastPushTime=result[3])
-            self.getUnpushedMessagesSaveInRule(rule)
+            self.getUnPushedMessagesSaveInRule(rule)
             user.addRule(rule)
         return 0
 
-    def getUnpushedMessagesSaveInRule(self,rule):
+    def getUnPushedMessagesSaveInRule(self,rule):
         '''
         '''
-        sql = "select title,href,time from Unpushed where ruleId = " + str(rule.id)
+        sql = "select title,href,time from UnPushed where ruleId = " + str(rule.id)
         cursor = self.db.cursor()
         try:
             results = cursor.execute(sql)
@@ -174,7 +174,7 @@ class MysqlOperator(DBOInterface):
             cursor.close()
         except Exception as e:
             cursor.close()
-            logger.error("Failed to getUnpushedMessagesSaveInRule",exc_info=True)
+            logger.error("Failed to getUnPushedMessagesSaveInRule",exc_info=True)
             return -1
         for result in results:
             rule.addMessage(Message(title=result[0],href=result[1],time=result[2]))
