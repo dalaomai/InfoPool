@@ -88,6 +88,7 @@ class WechatPush():
             result = json.loads(requests.get(url).text)
         except Exception as e:
             logger.error("Get wechat accessToken failed",exc_info=True)
+            return -1
 
         if result['errcode'] == 0:
             self.__accessToken = result['access_token']
