@@ -6,7 +6,7 @@ import random
 HtmlDownload_RETRY_TIME = 3  #HtmlDownload,网页源码下载重试次数
 HtmlDownload_TIMEOUT = 5#HtmlDownload,网页下载超时数
 
-START_SLEEP_TIME = 15*60
+START_SLEEP_TIME = 900
 
 '''
 定义rule
@@ -60,7 +60,7 @@ _DB_CONFIG = {
                'db':'infoPool',
                'type':'mysql'}
 }
-DB_CONFIG = _DB_CONFIG['mysql']
+DB_CONFIG = _DB_CONFIG['mysql_test']
 
 WECHAT_CONFIG = {
     'AgentId':'1000002',

@@ -8,7 +8,9 @@ from util import logger
 import pymysql
 
 class MysqlOperator(DBOInterface):
-
+    '''
+    每次查询，务必重连更新数据self.db.begin()
+    '''
     def __init__(self, db_config):
         #连接数据库
         try:
@@ -48,6 +50,7 @@ class MysqlOperator(DBOInterface):
         '''
 
         sql = "select id,webName,webUrl,ruleModel,rulePattern,titlePosition,hrefPosition,timePosition,isEffect,updateTime from Rule "
+        self.db.begin()     #重连，更新数据
         cursor = self.db.cursor()
         try:
             cursor.execute(sql)
@@ -128,6 +131,7 @@ class MysqlOperator(DBOInterface):
         '''
         '''
         sql = "select distinct userId, wechatId from UnPushed"
+        self.db.begin()     #重连，更新数据
         cursor = self.db.cursor()
         try:
             results = cursor.execute(sql)

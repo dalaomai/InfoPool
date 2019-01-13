@@ -13,6 +13,10 @@
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId>
     </InterpreterId>
+    <InterpreterArguments>
+    </InterpreterArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <CommandLineArguments>-db mysql_test</CommandLineArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -26,7 +30,6 @@
     <Content Include="document\~%24%24ER图.~vsdx" />
     <Content Include="document\~%24%24ER图.~vsdx" />
     <Content Include="document\需求分析.docx" />
-    <Content Include="README.md" />
     <Content Include="requirements.txt" />
     <Content Include="resource\大佬.png" />
     <Content Include="resource\消息.png" />
@@ -55,6 +58,9 @@
     <Content Include="web\showInfo\WebContent\showInfo.js" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="api\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="bin\WechatPush.py">
       <SubType>Code</SubType>
     </Compile>
@@ -72,12 +78,10 @@
     <Compile Include="db\DBOInterface.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="db\MysqlHelper.py" />
     <Compile Include="db\MysqlOperator.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="db\SqliteHelper.py" />
-    <Compile Include="db\test.py" />
     <Compile Include="db\__init__.py" />
     <Compile Include="common\Message.py">
       <SubType>Code</SubType>
@@ -118,6 +122,7 @@
     <Compile Include="__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="api\" />
     <Folder Include="db" />
     <Folder Include="document\" />
     <Folder Include="common\" />
