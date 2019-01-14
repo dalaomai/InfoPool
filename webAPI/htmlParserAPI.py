@@ -26,7 +26,10 @@ class HtmlParserAPI(object):
             logger.warning('',exc_info=True)
             return json.dumps(self.__result)
         self.__result['matchs'] = matchs
-        self.__result['messages'] = messages
+        msgs=[]
+        for msg in messages:
+            msgs.append([msg.title,msg.href,msg.time])
+        self.__result['messages'] = msgs
         return json.dumps(self.__result)
     
     def GET(self):
