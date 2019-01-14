@@ -23,6 +23,21 @@ class HtmlParser(object):
         try:
             #匹配解析模式
             if rule.ruleModel == 'regular':
+                result,_ = self.RegularPraser(html, rule)
+                return result
+            else:
+                raise Exception("规则类型选择失败！")
+        except Exception as e:
+            logger.error("HtmlParser.parse",exc_info=True)
+            return []
+        pass
+
+    def parseForAPI(self,html,rule):
+        '''
+        '''
+        try:
+            #匹配解析模式
+            if rule.ruleModel == 'regular':
                 return self.RegularPraser(html, rule)
             else:
                 raise Exception("规则类型选择失败！")
@@ -37,7 +52,7 @@ class HtmlParser(object):
         '''
         msgs = []
         pattern = re.compile(rule.rulePattern)
-        matchs = pattern.findall(html)
+        matchs = pattern.findall(str(html))
         logger.info("Parse " + rule.webUrl + " have " + str(len(matchs)) + " match")
 
         if matchs != None:
@@ -53,7 +68,7 @@ class HtmlParser(object):
                     logger.error("HtmlParser.RegularPraser",exc_info=True)
                     continue
                 msgs.append(Message(title,href,time))
-        return msgs
+        return msgs,matchs
 
     def XpathPraser(self, response, rule):
         '''

@@ -8,6 +8,8 @@ HtmlDownload_TIMEOUT = 5#HtmlDownload,网页下载超时数
 
 START_SLEEP_TIME = 900
 
+API_HOST = '127.0.0.1:8080'
+
 '''
 定义rule
 '''

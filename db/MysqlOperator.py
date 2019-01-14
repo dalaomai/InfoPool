@@ -9,7 +9,7 @@ import pymysql
 
 class MysqlOperator(DBOInterface):
     '''
-    每次查询，务必重连更新数据self.db.begin()
+    每次查询，务必重连、更新数据：self.db.begin()
     '''
     def __init__(self, db_config):
         #连接数据库
@@ -50,16 +50,7 @@ class MysqlOperator(DBOInterface):
         '''
 
         sql = "select id,webName,webUrl,ruleModel,rulePattern,titlePosition,hrefPosition,timePosition,isEffect,updateTime from Rule "
-        self.db.begin()     #重连，更新数据
-        cursor = self.db.cursor()
-        try:
-            cursor.execute(sql)
-            executeResults = cursor.fetchall()
-            cursor.close()
-        except Exception as e:
-            cursor.close()
-            logger.error("Failed to getAllRules",exc_info=True)
-            return -1
+        executeResults = self.__getFromDB(sql)
         rules=[]
         for executeResult in executeResults:
             rule = Rule(id = executeResult[0],
@@ -78,20 +69,22 @@ class MysqlOperator(DBOInterface):
     def saveUser(self,user):
         assert type(user) == User,"类型错误"
         sql = "insert into User(userName,password,permission,wechatId,wechatName,registerTime,phoneNumber,emailAddress) values(%s,%s,%s,%s,%s,%s,%s,%s)"
-        values= [user.userName,user.getPassword(),user.permission,user.wechatId,user.wechatName,user.registerTime,user.phoneNumber,user.emailAddress]
+        value= [user.userName,user.getPassword(),user.permission,user.wechatId,user.wechatName,user.registerTime,user.phoneNumber,user.emailAddress]
         cursor = self.db.cursor()
         try:
-            result = cursor.execute(sql,values)
+            result = cursor.execute(sql,value)
             self.db.commit()
             cursor.close()
+            return result
         except Exception as e:
             self.db.rollback()
             cursor.close()
-            if e.args[0] == 1062:
+            if e.args[0]==1062:
                 logger.warning(e.args[1])
-                return -2
-            logger.error("Failed to saveUser",exc_info=True)
+                return 0
+            logger.error("Failed:" + str(sql),exc_info=True)
             return -1
+        pass
         return result
 
     def saveRules(self,rules):
@@ -115,32 +108,14 @@ class MysqlOperator(DBOInterface):
                            rule.updateTime,
                            rule.webUrl,
                            rule.rulePattern])
-        cursor = self.db.cursor()
-        try:
-            result = cursor.executemany(sql,values)
-            self.db.commit()
-            cursor.close()
-        except Exception as e:
-            self.db.rollback()
-            cursor.close()
-            logger.error("Failed to save rules",exc_info=True)
-            return -1
+        result = self.__saveValuesToDB(sql,values)
         return result
 
     def getUnPushedUsers(self):
         '''
         '''
         sql = "select distinct userId, wechatId from UnPushed"
-        self.db.begin()     #重连，更新数据
-        cursor = self.db.cursor()
-        try:
-            results = cursor.execute(sql)
-            results = cursor.fetchall()
-            cursor.close()
-        except Exception as e:
-            cursor.close()
-            logger.error("Failed to getUnPushedUsers",exc_info=True)
-            return []
+        results = self.__getFromDB(sql)
         users = []
         for result in results:
             user = User(id=result[0],wechatId=result[1])
@@ -152,15 +127,7 @@ class MysqlOperator(DBOInterface):
         '''
         '''
         sql = "select distinct ruleId,webName,webUrl,lastPushTime from UnPushed where userId = " + str(user.id)
-        cursor = self.db.cursor()
-        try:
-            results = cursor.execute(sql)
-            results = cursor.fetchall()
-            cursor.close()
-        except Exception as e:
-            cursor.close()
-            logger.error("Failed to getUnPushedRulesSaveInUser",exc_info=True)
-            return -1
+        results = self.__getFromDB(sql)
         for result in results:
             rule = Rule(id=result[0],webName=result[1],webUrl=result[2],subscribeLastPushTime=result[3])
             self.getUnPushedMessagesSaveInRule(rule)
@@ -171,15 +138,7 @@ class MysqlOperator(DBOInterface):
         '''
         '''
         sql = "select title,href,time from UnPushed where ruleId = " + str(rule.id)
-        cursor = self.db.cursor()
-        try:
-            results = cursor.execute(sql)
-            results = cursor.fetchall()
-            cursor.close()
-        except Exception as e:
-            cursor.close()
-            logger.error("Failed to getUnPushedMessagesSaveInRule",exc_info=True)
-            return -1
+        results = self.__getFromDB(sql)
         for result in results:
             rule.addMessage(Message(title=result[0],href=result[1],time=result[2]))
         return 0
@@ -201,3 +160,45 @@ class MysqlOperator(DBOInterface):
             return -1
         return result
 
+    def __saveValueToDB(self,sql,value):
+        cursor = self.db.cursor()
+        try:
+            result = cursor.execute(sql,value)
+            self.db.commit()
+            cursor.close()
+            return result
+        except Exception as e:
+            self.db.rollback()
+            cursor.close()
+            logger.error("Failed:" + str(sql),exc_info=True)
+            return -1
+        pass
+
+    def __saveValuesToDB(self,sql,values):
+        cursor = self.db.cursor()
+        try:
+            result = cursor.executemany(sql,values)
+            self.db.commit()
+            cursor.close()
+            return result
+        except Exception as e:
+            self.db.rollback()
+            cursor.close()
+            logger.error("Failed:" + str(sql),exc_info=True)
+            return -1
+        pass
+
+    def __getFromDB(self,sql,value=[]):
+        self.db.begin()
+        cursor = self.db.cursor()
+        try:
+            results = cursor.execute(sql,value)
+            if results == 0:
+                return []
+            results = cursor.fetchall()
+            cursor.close()
+            return results
+        except Exception as e:
+            cursor.close()
+            logger.error("Failed :" + str(sql),exc_info=True)
+            return []

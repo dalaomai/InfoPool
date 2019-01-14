@@ -32,7 +32,7 @@ class HtmlDownload():
                     return -1
                 continue
 
-            if (not r.ok) or len(r.content) < 500:
+            if (not r.ok):
                 count += 1
             else:
                 logger.info("download " + url + " successful")

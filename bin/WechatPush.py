@@ -46,7 +46,7 @@ class WechatPush():
         try:
             result = requests.post(url,json.dumps(data))
             result = json.loads(result.text)
-            if result['errcode'] == 40014:
+            if result['errcode'] != 0:
                 self.getAccessToken()
                 url = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + self.__accessToken
                 result = requests.post(url,json.dumps(data))
