@@ -148,14 +148,14 @@ class MysqlOperator(DBOInterface):
         results = self.__getFromDB(sql)
         for result in results:
             rule = Rule(id=result[0],webName=result[1],webUrl=result[2],subscribeLastPushTime=result[3])
-            self.__getUnPushedMessagesSaveInRule(rule)
+            self.__getUnPushedMessagesSaveInRule(user,rule)
             user.addRule(rule)
         return 0
 
-    def __getUnPushedMessagesSaveInRule(self,rule):
+    def __getUnPushedMessagesSaveInRule(self,user,rule):
         '''
         '''
-        sql = "select title,href,time from UnPushed where ruleId = " + str(rule.id)
+        sql = "select title,href,time from UnPushed where ruleId = " + str(rule.id) + " and userId=" + str(user.id)
         results = self.__getFromDB(sql)
         for result in results:
             rule.addMessage(Message(title=result[0],href=result[1],time=result[2]))
