@@ -2,13 +2,56 @@
 
 import os
 import random
+MODEL = 'test' ##buile/test
+
 
 HtmlDownload_RETRY_TIME = 3  #HtmlDownload,网页源码下载重试次数
 HtmlDownload_TIMEOUT = 5#HtmlDownload,网页下载超时数
+API_HOST = '127.0.0.1:8080' #API地址和端口
+#全局休眠时间
+__START_SLEEP_TIME ={
+    'test':10,
+    'build':900
+    }
 
-START_SLEEP_TIME = 10
+'''
+数据库的配置
+'''
+__DB_CONFIG = {
+    'test' : {'host':'127.0.0.1',
+               'port':3306,
+               'user':'root',
+               'password':'admin',
+               'db':'infopool_test',
+               'type':'mysql'},
 
-API_HOST = '127.0.0.1:8080'
+    'build' : {'host':'123.207.30.13',
+               'port':3306,
+               'user':'root',
+               'password':'!Maizhiling456',
+               'db':'infoPool',
+               'type':'mysql'}
+}
+
+
+__WECHAT_CONFIG = {
+    'test':{
+            'AgentId':'1000002',
+            'CorpId':'wwf33356f92fbd6eab',
+            'Secret':os.environ['WECHATSECRET']
+            },
+    'build':{
+            'AgentId':'1000003',
+            'CorpId':'wwf33356f92fbd6eab',
+            'Secret':os.environ['WECHATSECRET']
+            }
+    }
+
+START_SLEEP_TIME=__START_SLEEP_TIME[MODEL]
+WECHAT_CONFIG = __WECHAT_CONFIG[MODEL]
+DB_CONFIG = __DB_CONFIG[MODEL]
+
+
 
 '''
 定义rule
@@ -38,37 +81,6 @@ parserList = [{
     'pattern': r"<li class=[\s\S]*?href='([\s\S]*?)' title='([\s\S]*?)'[\s\S]*?([0-9]{4}-[0-9]{2}-[0-9]{2})",
     'position': {'title':1,'href':0,'time':2}
     }]
-
-
-'''
-数据库的配置
-'''
-_DB_CONFIG = {
-    #数据库配置
-    'sqlite': {'path':'sqlite:///' + os.path.dirname(__file__) + '/data/data.sqlite',
-               'type':'sqlite'},
-
-    'mysql_test' : {'host':'127.0.0.1',
-               'port':3306,
-               'user':'root',
-               'password':'admin',
-               'db':'infopool_test',
-               'type':'mysql'},
-
-    'mysql' : {'host':'123.207.30.13',
-               'port':3306,
-               'user':'root',
-               'password':'!Maizhiling456',
-               'db':'infoPool',
-               'type':'mysql'}
-}
-DB_CONFIG = _DB_CONFIG['mysql_test']
-
-WECHAT_CONFIG = {
-    'AgentId':'1000003',
-    'CorpId':'wwf33356f92fbd6eab',
-    'Secret':os.environ['WECHATSECRET']
-    }
 
 
 USER_AGENTS = [
