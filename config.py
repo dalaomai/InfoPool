@@ -36,12 +36,12 @@ __DB_CONFIG = {
 
 __WECHAT_CONFIG = {
     'test':{
-            'AgentId':'1000002',
+            'AgentId':'1000003',
             'CorpId':'wwf33356f92fbd6eab',
             'Secret':os.environ['WECHATSECRET']
             },
     'build':{
-            'AgentId':'1000003',
+            'AgentId':'1000002',
             'CorpId':'wwf33356f92fbd6eab',
             'Secret':os.environ['WECHATSECRET']
             }
