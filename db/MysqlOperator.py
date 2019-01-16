@@ -124,7 +124,7 @@ class MysqlOperator(DBOInterface):
             users.append(user)
         return users
 
-    def updateUserLastPushTimeForRule(self,user,rule,time=datetime.now()):
+    def updateUserLastPushTimeForRule(self,user,rule,time):
         '''
         '''
         sql = "update User_Rule set lastPushTime = %s where userId = %s and ruleId = %s"

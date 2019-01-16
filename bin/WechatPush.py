@@ -27,7 +27,7 @@ class WechatPush():
                     if result == -1:
                         break
                 if result != -1:
-                    self.__DBOperator.updateUserLastPushTimeForRule(user,rule)
+                    self.__DBOperator.updateUserLastPushTimeForRule(user,rule,datetime.now())
         return 0
 
     def sendMessages(self,user,text):

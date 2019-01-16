@@ -40,7 +40,7 @@ class TestMysqlOperator(unittest.TestCase):
 
         self.assertNotEqual(mysqlOperator.updateUserLastPushTimeForRule(self.user,self.rule,0),-1)
         self.assertNotEqual(len(mysqlOperator.getUnPushedUsers()),0)
-        self.assertNotEqual(mysqlOperator.updateUserLastPushTimeForRule(self.user,self.rule),-1)
+        self.assertNotEqual(mysqlOperator.updateUserLastPushTimeForRule(self.user,self.rule,datetime.now()),-1)
         self.assertEqual(len(mysqlOperator.getUnPushedUsers()),0)
 
         return
