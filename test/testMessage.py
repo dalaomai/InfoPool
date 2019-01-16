@@ -5,6 +5,7 @@ from common.Message import Message
 
 
 class TestMessage(unittest.TestCase):
+
     def testBaseProperty(self):
         nowTime = datetime.datetime.now()
         msg = Message("title","href",nowTime)
@@ -16,6 +17,7 @@ class TestMessage(unittest.TestCase):
 
         msg = Message("title","href",nowTime,1)
         self.assertEqual(msg.id,1)
+        pass
 
 
 

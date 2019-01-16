@@ -18,6 +18,7 @@ class Rule():
         timePosition:string
         hrefPosition:string
         isEffect:boolean
+        updateTime:date
         //订阅相关
         subscribeIsPush:boolean
         subscribeLastPushTime:date

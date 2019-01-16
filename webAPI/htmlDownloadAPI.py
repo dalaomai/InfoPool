@@ -11,9 +11,10 @@ class HtmlDownloadAPI(object):
         pass
 
     def GET(self):
-        inputs = web.input(url=None)
+        inputs = web.input(url='')
         self.__msg['url'] = inputs.url
-        if self.__msg['url'] == None:
+        if self.__msg['url'] == '':
+            self.__msg['html'] = -1
             return json.dumps(self.__msg)
         self.__msg['html'] = HtmlDownload.download(self.__msg['url'])
         return json.dumps( self.__msg)

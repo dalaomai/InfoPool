@@ -29,5 +29,5 @@ class DBOInterface():
         pass
 
     @abstractmethod
-    def updateUserLastPushTimeForRule(self,user,rule):
+    def updateUserLastPushTimeForRule(self,user,rule,time):
         pass

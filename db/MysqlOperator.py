@@ -11,6 +11,7 @@ class MysqlOperator(DBOInterface):
     '''
     每次查询，务必重连、更新数据：self.db.begin()
     '''
+
     def __init__(self, db_config):
         #连接数据库
         try:
@@ -44,49 +45,6 @@ class MysqlOperator(DBOInterface):
             return -1
         return result
 
-    def getAllRules(self):
-        '''
-        return id,webName,webUrl,ruleModel,rulePattern,titlePosition,timePosition,hrefPosition,isEffect,updateTime
-        '''
-
-        sql = "select id,webName,webUrl,ruleModel,rulePattern,titlePosition,hrefPosition,timePosition,isEffect,updateTime from Rule "
-        executeResults = self.__getFromDB(sql)
-        rules=[]
-        for executeResult in executeResults:
-            rule = Rule(id = executeResult[0],
-                        webName=executeResult[1],
-                        webUrl =executeResult[2],
-                        ruleModel = executeResult[3],
-                        rulePattern=executeResult[4],
-                        titlePosition=executeResult[5],
-                        hrefPosition = executeResult[6],
-                        timePosition=executeResult[7],
-                        isEffect = executeResult[8],
-                        updateTime=executeResult[9])
-            rules.append(rule)
-        return rules
-
-    def saveUser(self,user):
-        assert type(user) == User,"类型错误"
-        sql = "insert into User(userName,password,permission,wechatId,wechatName,registerTime,phoneNumber,emailAddress) values(%s,%s,%s,%s,%s,%s,%s,%s)"
-        value= [user.userName,user.getPassword(),user.permission,user.wechatId,user.wechatName,user.registerTime,user.phoneNumber,user.emailAddress]
-        cursor = self.db.cursor()
-        try:
-            result = cursor.execute(sql,value)
-            self.db.commit()
-            cursor.close()
-            return result
-        except Exception as e:
-            self.db.rollback()
-            cursor.close()
-            if e.args[0]==1062:
-                logger.warning(e.args[1])
-                return 0
-            logger.error("Failed:" + str(sql),exc_info=True)
-            return -1
-        pass
-        return result
-
     def saveRules(self,rules):
         '''
         '''
@@ -111,6 +69,49 @@ class MysqlOperator(DBOInterface):
         result = self.__saveValuesToDB(sql,values)
         return result
 
+    def saveUser(self,user):
+        assert type(user) == User,"类型错误"
+        sql = "insert into User(userName,password,permission,wechatId,wechatName,registerTime,phoneNumber,emailAddress) values(%s,%s,%s,%s,%s,%s,%s,%s)"
+        value= [user.userName,user.getPassword(),user.permission,user.wechatId,user.wechatName,user.registerTime,user.phoneNumber,user.emailAddress]
+        cursor = self.db.cursor()
+        try:
+            result = cursor.execute(sql,value)
+            self.db.commit()
+            cursor.close()
+            return result
+        except Exception as e:
+            self.db.rollback()
+            cursor.close()
+            if e.args[0]==1062:
+                logger.warning(e.args[1])
+                return 0
+            logger.error("Failed:" + str(sql),exc_info=True)
+            return -1
+        pass
+        return result
+
+    def getAllRules(self):
+        '''
+        return id,webName,webUrl,ruleModel,rulePattern,titlePosition,timePosition,hrefPosition,isEffect,updateTime
+        '''
+
+        sql = "select id,webName,webUrl,ruleModel,rulePattern,titlePosition,hrefPosition,timePosition,isEffect,updateTime from Rule "
+        executeResults = self.__getFromDB(sql)
+        rules=[]
+        for executeResult in executeResults:
+            rule = Rule(id = executeResult[0],
+                        webName=executeResult[1],
+                        webUrl =executeResult[2],
+                        ruleModel = executeResult[3],
+                        rulePattern=executeResult[4],
+                        titlePosition=executeResult[5],
+                        hrefPosition = executeResult[6],
+                        timePosition=executeResult[7],
+                        isEffect = executeResult[8],
+                        updateTime=executeResult[9])
+            rules.append(rule)
+        return rules
+
     def getUnPushedUsers(self):
         '''
         '''
@@ -119,35 +120,15 @@ class MysqlOperator(DBOInterface):
         users = []
         for result in results:
             user = User(id=result[0],wechatId=result[1])
-            self.getUnPushedRulesSaveInUser(user)
+            self.__getUnPushedRulesSaveInUser(user)
             users.append(user)
         return users
 
-    def getUnPushedRulesSaveInUser(self,user):
-        '''
-        '''
-        sql = "select distinct ruleId,webName,webUrl,lastPushTime from UnPushed where userId = " + str(user.id)
-        results = self.__getFromDB(sql)
-        for result in results:
-            rule = Rule(id=result[0],webName=result[1],webUrl=result[2],subscribeLastPushTime=result[3])
-            self.getUnPushedMessagesSaveInRule(rule)
-            user.addRule(rule)
-        return 0
-
-    def getUnPushedMessagesSaveInRule(self,rule):
-        '''
-        '''
-        sql = "select title,href,time from UnPushed where ruleId = " + str(rule.id)
-        results = self.__getFromDB(sql)
-        for result in results:
-            rule.addMessage(Message(title=result[0],href=result[1],time=result[2]))
-        return 0
-
-    def updateUserLastPushTimeForRule(self,user,rule):
+    def updateUserLastPushTimeForRule(self,user,rule,time=datetime.now()):
         '''
         '''
         sql = "update User_Rule set lastPushTime = %s where userId = %s and ruleId = %s"
-        value = [datetime.now(),user.id,rule.id]
+        value = [time,user.id,rule.id]
         cursor = self.db.cursor()
         try:
             result = cursor.execute(sql,value)
@@ -159,6 +140,26 @@ class MysqlOperator(DBOInterface):
             logger.error("Failed to updateUserLastPushTime",exc_info=True)
             return -1
         return result
+
+    def __getUnPushedRulesSaveInUser(self,user):
+        '''
+        '''
+        sql = "select distinct ruleId,webName,webUrl,lastPushTime from UnPushed where userId = " + str(user.id)
+        results = self.__getFromDB(sql)
+        for result in results:
+            rule = Rule(id=result[0],webName=result[1],webUrl=result[2],subscribeLastPushTime=result[3])
+            self.__getUnPushedMessagesSaveInRule(rule)
+            user.addRule(rule)
+        return 0
+
+    def __getUnPushedMessagesSaveInRule(self,rule):
+        '''
+        '''
+        sql = "select title,href,time from UnPushed where ruleId = " + str(rule.id)
+        results = self.__getFromDB(sql)
+        for result in results:
+            rule.addMessage(Message(title=result[0],href=result[1],time=result[2]))
+        return 0
 
     def __saveValueToDB(self,sql,value):
         cursor = self.db.cursor()

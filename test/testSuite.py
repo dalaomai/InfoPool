@@ -1,6 +1,6 @@
 
 import unittest
-from test import TestMessage,TestRule,TestUser,TestHtmlDownload,TestHtmlParser,TestMysqlOperator,TestWechatPush
+from test import *
 
 
 if __name__ == '__main__':
@@ -10,10 +10,13 @@ if __name__ == '__main__':
     suite.addTest(TestRule("testBaseProperty"))
     suite.addTest(TestRule("testBaseMethod"))
     suite.addTest(TestUser("testBaseProperty"))
+    suite.addTest(TestUser("testBaseMethod"))
     suite.addTest(TestHtmlDownload("testBaseProperty"))
     suite.addTest(TestHtmlParser("testParser"))
     suite.addTest(TestMysqlOperator("testBaseMethod"))
+    suite.addTest(TestMysqlOperator("testBaseProperty"))
     suite.addTest(TestWechatPush("testBaseMethod"))
+    suite.addTest(TestWebAPI("testBaseMethod"))
 
 
     runner = unittest.TextTestRunner()

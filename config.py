@@ -65,7 +65,7 @@ _DB_CONFIG = {
 DB_CONFIG = _DB_CONFIG['mysql_test']
 
 WECHAT_CONFIG = {
-    'AgentId':'1000002',
+    'AgentId':'1000003',
     'CorpId':'wwf33356f92fbd6eab',
     'Secret':os.environ['WECHATSECRET']
     }

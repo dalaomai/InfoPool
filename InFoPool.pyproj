@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{18f91ae9-ab06-4273-bcd7-0ef630c9d3a1}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>bin\api.py</StartupFile>
+    <StartupFile>test\testSuite.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -60,6 +60,9 @@
     <Content Include="web\showInfo\WebContent\showInfo.js" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="test\testWebAPI.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="webAPI\htmlDownloadAPI.py">
       <SubType>Code</SubType>
     </Compile>

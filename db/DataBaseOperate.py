@@ -1,6 +1,7 @@
 from db.DBOInterface import DBOInterface
 from config import DB_CONFIG
 from util import logger
+from datetime import datetime
 
 
 class DataBaseOperate(DBOInterface):
@@ -37,8 +38,8 @@ class DataBaseOperate(DBOInterface):
     def getUnPushedUsers(self):
         return self.__operator.getUnPushedUsers()
 
-    def updateUserLastPushTimeForRule(self,user,rule):
-        return self.__operator.updateUserLastPushTimeForRule(user,rule)
+    def updateUserLastPushTimeForRule(self,user,rule,time=datetime.now()):
+        return self.__operator.updateUserLastPushTimeForRule(user,rule,time)
 
 
 

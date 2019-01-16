@@ -16,6 +16,7 @@ class HtmlDownload():
     def download(url):
 
         '''
+        随机选择User-Agent，构成请求头
         备注：可增加，使用代理ip，进行下载
         '''
 

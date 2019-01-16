@@ -12,6 +12,7 @@ class HtmlParserAPI(object):
 
     def POST(self):
         inputs= web.data().decode('utf-8')
+        logger.debug(inputs)
         try:
             inputs = json.loads(inputs)
             rule = Rule(webUrl=inputs['webUrl'],

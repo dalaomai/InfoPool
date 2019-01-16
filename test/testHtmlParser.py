@@ -7,6 +7,7 @@ from common.HtmlDownload import HtmlDownload
 from common.Rule import Rule
 
 class TestHtmlParser(unittest.TestCase):
+
     def testParser(self):
         parser = HtmlParser()
         rule = Rule(id = 1,
@@ -20,7 +21,15 @@ class TestHtmlParser(unittest.TestCase):
             isEffect = 1
             )
         html = HtmlDownload.download(rule.webUrl)
+        msgs = parser.RegularPraser(html,rule)
+        self.assertNotEqual(len(msgs),0)
         msgs = parser.parse(html,rule)
         self.assertNotEqual(len(msgs),0)
-        
+        msgs,matchs = parser.parseForAPI(html,rule)
+        self.assertNotEqual(len(msgs),0)
+        self.assertNotEqual(len(matchs),0)
+
+        msgs = parser.parse('',rule)
+        self.assertEqual(len(msgs),0)
+        pass
 

@@ -22,26 +22,27 @@ class TestMysqlOperator(unittest.TestCase):
                     )
     msg = Message("title","http://www.foshan.gov.cn/zwgk/zwdt/jryw/","2019-1-8")
 
+    def testBaseProperty(self):
+        mysqlOperator = MysqlOperator(DB_CONFIG)
+        self.assertNotEqual(mysqlOperator.db,None)
+
     def testBaseMethod(self):
         mysqlOperator = MysqlOperator(DB_CONFIG)
-
-        self.assertNotEqual(mysqlOperator.saveRules([self.rule]),-1)
-
-        rules = mysqlOperator.getAllRules()
-        self.assertNotEqual(len(rules),0)
-
         nowTime = datetime.now()
+
 
         msg = Message("title","href",nowTime.strftime("%Y-%m-%d"))
         self.rule.addMessage(msg)
-
+        self.assertNotEqual(mysqlOperator.saveRules([self.rule]),-1)
         self.assertNotEqual(mysqlOperator.saveMessagesFromRule(self.rule),-1)
-        
         self.assertNotEqual(mysqlOperator.saveUser(self.user),-1)
+        self.assertNotEqual(len(mysqlOperator.getAllRules()),0)
 
-        mysqlOperator.getUnPushedUsers()
-
+        self.assertNotEqual(mysqlOperator.updateUserLastPushTimeForRule(self.user,self.rule,0),-1)
+        self.assertNotEqual(len(mysqlOperator.getUnPushedUsers()),0)
         self.assertNotEqual(mysqlOperator.updateUserLastPushTimeForRule(self.user,self.rule),-1)
+        self.assertEqual(len(mysqlOperator.getUnPushedUsers()),0)
+
         return
 
 

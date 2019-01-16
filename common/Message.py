@@ -8,3 +8,4 @@ class Message():
         self.time = time
         self.href = href
         self.updateTime = datetime.datetime.now()
+        pass
