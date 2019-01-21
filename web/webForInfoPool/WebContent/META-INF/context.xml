@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context reloadable="true">
+<Resource
+	name="jdbc/mysql_test"
+	type="javax.sql.DataSource"
+	driverClassName="com.mysql.cj.jdbc.Driver"
+	url="jdbc:mysql://127.0.0.1:3306/infopool_test?serverTimezone=GMT"
+	maxActive="4"
+	maxIdle="2"
+	maxWait="5000"
+	username="root"
+	password="admin"/>
+	
+</Context>
