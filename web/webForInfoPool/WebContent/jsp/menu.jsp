@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 
-<!DOCTYPE html>
+
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
@@ -10,7 +10,6 @@
 	<title>MP</title>
 	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/menu.css">
-
 </head>
 <body id="body">
 	
@@ -21,24 +20,22 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
             <ul class="nav sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
-                       Bootstrap 3
-                    </a>
+                       <a href="#">Menu</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-home"></i> Home</a>
+                    <a href="#"><i class="fa fa-fw fa-cog"></i> Show Message</a>
                 </li>
                 <li>
-                    <a href="../jsp/login.jsp"><i class="fa fa-fw fa-folder"></i> Page one</a>
+                    <a href="javascipt:void(0);" onclick="showUser()"><i class="fa fa-fw fa-folder"></i>Alter Information</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-file-o"></i> Second page</a>
+                    <a href="javascipt:void(0);"><i class="fa fa-fw fa-file-o"></i> Alter Rules</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-cog"></i> Third page</a>
+                    <a href="javascipt:void(0);"><i class="fa fa-fw fa-cog"></i> Develop Rule</a>
                 </li>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> Dropdown <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> 备用 <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
                     <li class="dropdown-header">Dropdown heading</li>
                     <li><a href="#">Action</a></li>
@@ -47,15 +44,6 @@
                     <li><a href="#">Separated link</a></li>
                     <li><a href="#">One more separated link</a></li>
                   </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-bank"></i> Page four</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-dropbox"></i> Page 5</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-twitter"></i> Last page</a>
                 </li>
             </ul>
         </nav>
@@ -73,6 +61,9 @@
                     <div class="col-lg-8 col-lg-offset-2">
                         <h1 class="page-header">Welcome everyone !!</h1>  
                     </div>
+                    <div id="otherPage">
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,38 +71,9 @@
 
     </div>
     <!-- /#wrapper -->
-	
-	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function () {
-		  var trigger = $('.hamburger'),
-		      overlay = $('.overlay'),
-		     isClosed = false;
 
-		    trigger.click(function () {
-		      hamburger_cross();      
-		    });
-
-		    function hamburger_cross() {
-
-		      if (isClosed == true) {          
-		        overlay.hide();
-		        trigger.removeClass('is-open');
-		        trigger.addClass('is-closed');
-		        isClosed = false;
-		      } else {   
-		        overlay.show();
-		        trigger.removeClass('is-closed');
-		        trigger.addClass('is-open');
-		        isClosed = true;
-		      }
-		  }
-		  
-		  $('[data-toggle="offcanvas"]').click(function () {
-		        $('#wrapper').toggleClass('toggled');
-		  });  
-		});
-	</script>
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/menu.js"></script>
 </body>
 </html>

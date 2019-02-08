@@ -20,3 +20,20 @@ $(function() {	//通知栏样式
 			  "hideMethod": "fadeOut"
 			}
 })
+
+function login() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    var dataJson = { "username": username, "password": password };
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", "login", false);
+    xmlhttp.setRequestHeader("Content-type", "application/json");
+    xmlhttp.send(JSON.stringify(dataJson));
+    var resultJson = JSON.parse(xmlhttp.responseText);
+    if (resultJson.code == 0) {
+        toastr.info(resultJson['msg']);
+        window.location.href = resultJson['redirect'];
+    } else {
+        toastr.error(resultJson['msg']);
+    }
+}

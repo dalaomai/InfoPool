@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.jasper.tagplugins.jstl.core.Out;
 
@@ -18,6 +19,7 @@ import com.infoPool.dbo.UserDao;
 import com.alibaba.fastjson.*;
 import com.infoPool.bean.LoginMsg;
 import com.infoPool.util.JsonRecive;
+import com.mysql.cj.Session;
 /**
  * Servlet implementation class login
  */
@@ -48,6 +50,7 @@ public class login extends HttpServlet {
 		String requestType = request.getContentType();
 		String userName = null;
 		String password = null;
+		HttpSession session = request.getSession(true);
 		//获取提交数据
 		if(requestType.indexOf("application/json")!=-1) {	//json处理
 			JSONObject json=JsonRecive.receivePost(request);
@@ -68,7 +71,8 @@ public class login extends HttpServlet {
 				loginMsg = new LoginMsg(1,"user doesn't exits","");
 			}else {		//验证密码
 				if(user.verifyPassword(password)) {
-					loginMsg = new LoginMsg(0,"ok","/jsp/menu.jsp");
+					session.setAttribute("user", user);
+					loginMsg = new LoginMsg(0,"ok","menu");
 				}
 				else {
 					loginMsg = new LoginMsg(2,"password doesn't right","");
