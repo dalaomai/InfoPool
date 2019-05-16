@@ -92,10 +92,10 @@ class MysqlOperator(DBOInterface):
 
     def getAllRules(self):
         '''
-        return id,webName,webUrl,ruleModel,rulePattern,titlePosition,timePosition,hrefPosition,isEffect,updateTime
+        return id,webName,webUrl,ruleModel,rulePattern,titlePosition,timePosition,hrefPosition,isEffect,updateTime,webModel
         '''
 
-        sql = "select id,webName,webUrl,ruleModel,rulePattern,titlePosition,hrefPosition,timePosition,isEffect,updateTime from Rule "
+        sql = "select id,webName,webUrl,ruleModel,rulePattern,titlePosition,hrefPosition,timePosition,isEffect,updateTime,webModel from Rule "
         executeResults = self.__getFromDB(sql)
         rules=[]
         for executeResult in executeResults:
@@ -108,7 +108,8 @@ class MysqlOperator(DBOInterface):
                         hrefPosition = executeResult[6],
                         timePosition=executeResult[7],
                         isEffect = executeResult[8],
-                        updateTime=executeResult[9])
+                        updateTime=executeResult[9],
+                        webModel=executeResult[10])
             rules.append(rule)
         return rules
 

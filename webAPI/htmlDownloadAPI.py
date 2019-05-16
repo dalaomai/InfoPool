@@ -8,6 +8,7 @@ class HtmlDownloadAPI(object):
             'url':'',
             'html':''
             }
+        self.htmlDownload = HtmlDownload()
         pass
 
     def GET(self):
@@ -16,7 +17,7 @@ class HtmlDownloadAPI(object):
         if self.__msg['url'] == '':
             self.__msg['html'] = -1
             return json.dumps(self.__msg)
-        self.__msg['html'] = HtmlDownload.download(self.__msg['url'])
+        self.__msg['html'] = self.htmlDownload.download(self.__msg['url'],'normal')
         return json.dumps( self.__msg)
 
     def POST(self):

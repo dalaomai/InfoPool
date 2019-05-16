@@ -1,6 +1,9 @@
 
 import unittest
-from test import *
+import sys
+print(sys.path)
+
+from testSet import *
 
 
 if __name__ == '__main__':
@@ -16,7 +19,8 @@ if __name__ == '__main__':
     suite.addTest(TestMysqlOperator("testBaseMethod"))
     suite.addTest(TestMysqlOperator("testBaseProperty"))
     suite.addTest(TestWechatPush("testBaseMethod"))
-    suite.addTest(TestWebAPI("testBaseMethod"))
+    suite.addTest(TestEscapeTool("testBaseMethod"))
+    suite.addTest(TestWebAPI("testBaseMethod"))   
 
 
     runner = unittest.TextTestRunner()

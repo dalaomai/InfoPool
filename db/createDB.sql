@@ -15,6 +15,8 @@ create table Rule(
 	id int auto_increment primary key,
     webName char(255) not null,
     webUrl char(255) not null,
+    #alter table rule add column webModel char(255) not null default "normal" after webUrl
+    webModel char(255) not null default "normal",
     rulePattern text not null,
     ruleModel char(255) not null,
     titlePosition text not null,

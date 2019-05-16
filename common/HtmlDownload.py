@@ -3,17 +3,33 @@
 
 from config import HtmlDownload_RETRY_TIME,HtmlDownload_TIMEOUT,HtmlDownload_get_header
 from util import logger
+from common.EscapeTool import EscapeTool
 
 import requests
 import chardet
+from datetime import datetime
 
 
 class HtmlDownload():
     def __init__(self, *args, **kwargs):
         return
 
+    def download(self,url,model="normal"):
+        try:
+            if model == "normal":
+                return self.normalDownload(url)
+            elif model == "date":
+                return self.dateDownload(url)
+            else:
+                logger.error("web model is not match")
+                return -1
+        except Exception as e:
+            logger.error("download model has error", exc_info=True)
+        
+        return -1
+
     @staticmethod
-    def download(url):
+    def normalDownload(url):
 
         '''
         随机选择User-Agent，构成请求头
@@ -41,3 +57,14 @@ class HtmlDownload():
         logger.warning("download " + url + " failed")
         return -1
 
+    def dateDownload(self,url):
+        '''
+        按日期更新的url
+        
+        '''
+        nowTime = datetime.now()
+        url = EscapeTool.replace(url,r'\Y',nowTime.strftime("%Y"))  #替换年
+        url = EscapeTool.replace(url,r'\m',nowTime.strftime("%m"))  #替换月
+        url = EscapeTool.replace(url,r'\d',nowTime.strftime("%d"))  #替换日
+        
+        return self.normalDownload(url)

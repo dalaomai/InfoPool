@@ -13,6 +13,7 @@ class TestHtmlParser(unittest.TestCase):
         rule = Rule(id = 1,
             webName="佛山市人民政府",
             webUrl = "http://www.foshan.gov.cn/zwgk/zwdt/jryw/",
+            webModel = "normal",
             ruleModel = "regular",
             rulePattern=r'<li [\s\S]*?([0-9]{4}-[0-9]{2}-[0-9]{2})[\s\S]*?href="([\s\S]*?)"[\s\S]*?title="([\s\S]*?)" >',
             titlePosition="2",
@@ -20,7 +21,8 @@ class TestHtmlParser(unittest.TestCase):
             timePosition="0",
             isEffect = 1
             )
-        html = HtmlDownload.download(rule.webUrl)
+        htmlDownload = HtmlDownload()
+        html = htmlDownload.download(rule.webUrl,rule.webModel)
         msgs = parser.RegularPraser(html,rule)
         self.assertNotEqual(len(msgs),0)
         msgs = parser.parse(html,rule)

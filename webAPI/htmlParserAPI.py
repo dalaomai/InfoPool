@@ -8,24 +8,33 @@ class HtmlParserAPI(object):
             'matchs':[''],
             'messages':[('','','')]
             }
+        self.htmlDownload = HtmlDownload()
         self.__parser = HtmlParser()
 
     def POST(self):
         inputs= web.data().decode('utf-8')
         logger.debug(inputs)
+        
         try:
             inputs = json.loads(inputs)
+        except Exception as e:
+            logger.warning('the date is not right: ' + str(inputs))
+            return json.dumps(self.__result)
+        
+        try:
             rule = Rule(webUrl=inputs['webUrl'],
+                        webModel=inputs['webModel'],
                         rulePattern=inputs['rulePattern'],
                         ruleModel=inputs['ruleModel'],
                         titlePosition=inputs['titlePosition'],
                         timePosition=inputs['timePosition'],
                         hrefPosition=inputs['hrefPosition'])
-            html = HtmlDownload.download(rule.webUrl)
+            html = self.htmlDownload.download(rule.webUrl,rule.webModel)
             messages,matchs = self.__parser.parseForAPI(html,rule)
         except Exception as e:
-            logger.warning('',exc_info=True)
+            logger.error('',exc_info=True)
             return json.dumps(self.__result)
+    
         self.__result['matchs'] = matchs
         msgs=[]
         for msg in messages:

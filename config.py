@@ -21,8 +21,8 @@ __DB_CONFIG = {
     'test' : {'host':'127.0.0.1',
                'port':3306,
                'user':'root',
-               'password':'admin',
-               'db':'infopool_test',
+               'password':'maizhiling456',
+               'db':'infopool',
                'type':'mysql'},
 
     'build' : {'host':'123.207.30.13',

@@ -32,6 +32,7 @@ class TestWebAPI(unittest.TestCase):
         self.assertEqual(result['messages'],[['','','']])
         data = {
                 "webUrl":"http://www.foshan.gov.cn/zwgk/zwdt/jryw/",
+                "webModel":"normal",
                 "rulePattern":'<li [\s\S]*?([0-9]{4}-[0-9]{2}-[0-9]{2})[\s\S]*?href="([\s\S]*?)"[\s\S]*?title="([\s\S]*?)" >',
                 "ruleModel":"regular",
                 "titlePosition":"2",

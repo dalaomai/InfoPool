@@ -29,6 +29,7 @@ class Rule():
         self.id = None
         self.webName = None
         self.webUrl = None
+        self.webModel = None
         self.rulePattern = None
         self.ruleModel = None
         self.titlePosition = None
@@ -53,6 +54,7 @@ class Rule():
         self.id = kwargs.get("id",self.id)
         self.webName = kwargs.get("webName",self.webName)
         self.webUrl = kwargs.get("webUrl",self.webUrl)
+        self.webModel = kwargs.get("webModel",self.webModel)
         self.rulePattern = kwargs.get("rulePattern",self.rulePattern)
         self.ruleModel = kwargs.get("ruleModel",self.ruleModel)
         self.titlePosition = kwargs.get("titlePosition",self.titlePosition)

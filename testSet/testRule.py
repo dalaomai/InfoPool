@@ -14,6 +14,7 @@ class TestRule(unittest.TestCase):
         rule = Rule(id = 1,
                     webName="佛山市人民政府",
                     webUrl = "http://www.foshan.gov.cn/zwgk/zwdt/jryw/",
+                    webModel = "normal",
                     ruleModel = "regular",
                     rulePattern=r'<li [\s\S]*?([0-9]{4}-[0-9]{2}-[0-9]{2})[\s\S]*?href="([\s\S]*?)"[\s\S]*?title="([\s\S]*?)" >',
                     titlePosition="2",
@@ -25,6 +26,7 @@ class TestRule(unittest.TestCase):
         self.assertEqual(rule.id,1)
         self.assertEqual(rule.webName,"佛山市人民政府")
         self.assertEqual(rule.webUrl,"http://www.foshan.gov.cn/zwgk/zwdt/jryw/")
+        self.assertEqual(rule.webModel,"normal")
         self.assertEqual(rule.ruleModel,"regular")
         self.assertEqual(rule.rulePattern,r'<li [\s\S]*?([0-9]{4}-[0-9]{2}-[0-9]{2})[\s\S]*?href="([\s\S]*?)"[\s\S]*?title="([\s\S]*?)" >')
         self.assertEqual(rule.titlePosition,"2")
@@ -41,6 +43,7 @@ class TestRule(unittest.TestCase):
         self.assertEqual(rule.id,None)
         self.assertEqual(rule.webName,None)
         self.assertEqual(rule.webUrl,None)
+        self.assertEqual(rule.webModel,None)
         self.assertEqual(rule.ruleModel,None)
         self.assertEqual(rule.rulePattern,None)
         self.assertEqual(rule.titlePosition,None)
@@ -55,6 +58,7 @@ class TestRule(unittest.TestCase):
         rule = Rule(id = 1,
                     webName="佛山市科学技术局",
                     webUrl = "http://www.fskw.gov.cn/tzgg/",
+                    webModel = "normal",
                     ruleModel = "regular",
                     rulePattern=r'<li><span>[\s\S]*?([0-9]{4}-[0-9]{2}-[0-9]{2})[\s\S]*?href="([\s\S]*?)"[\s\S]*?title="([\s\S]*?)">[\s\S]*?</li>',
                     titlePosition="2",
