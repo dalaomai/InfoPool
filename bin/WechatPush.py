@@ -7,6 +7,9 @@ import json
 import random
 from datetime import datetime
 from config import WECHAT_CONFIG
+from common.CreateShortUrl import CreateShortUrl
+
+createShortUrl = CreateShortUrl()
 
 class WechatPush():
     def __init__(self, *args, **kwargs):
@@ -52,7 +55,7 @@ class WechatPush():
                 result = requests.post(url,json.dumps(data))
                 result = json.loads(result.text)
         except Exception as e:
-            logger.error("Post wechat push failed",exc_info=True)
+            logger.error("Post wechat push failed:{}".format(e),exc_info=True)
 
         if result['errcode'] != 0 or result['invaliduser'] != '':
             logger.error("Post wechat push failed.\n result :" + json.dumps(result) + "\ndata: " + json.dumps(data))
@@ -61,7 +64,7 @@ class WechatPush():
         return 0
 
     def structureMessageTextByRule(self,rule):
-        assert type(rule)==Rule,类型错误
+        assert type(rule)==Rule,'类型错误'
         resultText = ''
         resultText += '<a href="'+ rule.webUrl + self.count() + '">'+ rule.webName + '</a>' + '\n----------------\n'
         for msg in rule.getMessages():
@@ -70,8 +73,9 @@ class WechatPush():
         return resultText
 
     def structureMessageTextByMessage(self,message):
-        assert type(message)==Message,类型错误
-        return '<a href="'+ message.href + '">'+ message.title + '</a>\n'
+        assert type(message)==Message,'类型错误'
+        #去除title左右的空格
+        return '<a href="'+ message.href + '">'+ message.title.rstrip() + '</a>\n'
 
     def count(self):
         '''
@@ -87,7 +91,7 @@ class WechatPush():
             url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid='+ WECHAT_CONFIG['CorpId'] +'&corpsecret=' +  WECHAT_CONFIG['Secret']
             result = json.loads(requests.get(url).text)
         except Exception as e:
-            logger.error("Get wechat accessToken failed",exc_info=True)
+            logger.error("Get wechat accessToken failed : {}".format(e),exc_info=True)
             return -1
 
         if result['errcode'] == 0:

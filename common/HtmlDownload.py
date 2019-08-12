@@ -4,6 +4,7 @@
 from config import HtmlDownload_RETRY_TIME,HtmlDownload_TIMEOUT,HtmlDownload_get_header
 from util import logger
 from common.EscapeTool import EscapeTool
+import re
 
 import requests
 import chardet
@@ -14,17 +15,23 @@ class HtmlDownload():
     def __init__(self, *args, **kwargs):
         return
 
-    def download(self,url,model="normal"):
+    def download(self,url,model="normal",**kwargs):
+        if re.search('http',url) == None:
+            url = 'http://' + url
+
         try:
             if model == "normal":
                 return self.normalDownload(url)
             elif model == "date":
-                return self.dateDownload(url)
+                if 'date' in kwargs.keys():
+                    return self.dateDownload(url,kwargs['date'])
+                else:
+                    return self.dateDownload(url)
             else:
                 logger.error("web model is not match")
                 return -1
         except Exception as e:
-            logger.error("download model has error", exc_info=True)
+            logger.error("download model has error : {}".format(e), exc_info=True)
         
         return -1
 
@@ -44,8 +51,8 @@ class HtmlDownload():
             except Exception as e:
                 count += 1
                 if count > HtmlDownload_RETRY_TIME:
-                    logger.debug("download " + url + " failed",exc_info=True)
-                    logger.warning("download " + url + " failed")
+                    logger.debug("download " + url + " failed: {}".format(e),exc_info=True)
+                    logger.warning("download " + url + " failed : {}".format(e))
                     return -1
                 continue
 
@@ -57,12 +64,11 @@ class HtmlDownload():
         logger.warning("download " + url + " failed")
         return -1
 
-    def dateDownload(self,url):
+    def dateDownload(self,url,nowTime = datetime.now()):
         '''
         按日期更新的url
         
         '''
-        nowTime = datetime.now()
         url = EscapeTool.replace(url,r'\Y',nowTime.strftime("%Y"))  #替换年
         url = EscapeTool.replace(url,r'\m',nowTime.strftime("%m"))  #替换月
         url = EscapeTool.replace(url,r'\d',nowTime.strftime("%d"))  #替换日

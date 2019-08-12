@@ -27,11 +27,11 @@ class MysqlOperator(DBOInterface):
     def saveMessagesFromRule(self, rule):
 
         sql = "insert into Message(title,href,time,ruleId) select %s,%s,%s,%s \
-                from dual where not exists(select title from Message where title=%s and ruleId=%s)"
+                from dual where not exists(select title from Message where href=%s and ruleId=%s)"
         values=[]
         messages = rule.getMessages()
         for msg in messages:
-            values.append([msg.title,msg.href,msg.time,rule.id,msg.title,rule.id])
+            values.append([msg.title,msg.href,msg.time,rule.id,msg.href,rule.id])
 
         cursor = self.db.cursor()
         try:

@@ -20,7 +20,7 @@ class InfoCrawl(object):
         logger.info("get " + str(len(rules)) + " rules to update message")
         rule = Rule()
         for rule in rules:
-            html = self.htmlDownload.download(rule.webUrl)
+            html = self.htmlDownload.download(rule.webUrl,rule.webModel)
             if html == -1:
                 continue
             messages = self.htmlParser.parse(html,rule)

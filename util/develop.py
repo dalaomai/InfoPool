@@ -27,7 +27,6 @@ def developParser():
 
 if __name__ == '__test__':
     import sys
-    sys.path.append(r'C:\Users\dalaomai\Source\Accurate_recommendation\ProjectSourceCode\InFoPool')
     from util import develop
     from imp import reload
     reload(develop)

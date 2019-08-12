@@ -2,6 +2,7 @@ from common import *
 import web
 from util import *
 import json
+from datetime import datetime
 class HtmlParserAPI(object):
     def __init__(self, *args, **kwargs):
         self.__result = {
@@ -29,7 +30,8 @@ class HtmlParserAPI(object):
                         titlePosition=inputs['titlePosition'],
                         timePosition=inputs['timePosition'],
                         hrefPosition=inputs['hrefPosition'])
-            html = self.htmlDownload.download(rule.webUrl,rule.webModel)
+            date = inputs.get('date','2019-01-01')
+            html = self.htmlDownload.download(rule.webUrl,rule.webModel,date=datetime.strptime(date,r'%Y-%m-%d'))
             messages,matchs = self.__parser.parseForAPI(html,rule)
         except Exception as e:
             logger.error('',exc_info=True)

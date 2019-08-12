@@ -1,0 +1,3 @@
+id,userName,password,permission,wechatId,wechatName,registerTime,phoneNumber,emailAddress,updateTime
+1,dalaomai,21232f297a57a5a743894a0e4a801fc3,NULL,MAIZHILING,dalaomaai,"2019-01-11 08:58:53",NULL,NULL,"2019-01-11 08:58:53"
+3,liam_su,21232f297a57a5a743894a0e4a801fc3,NULL,liam_su,liam_su,"2019-01-15 20:19:23",NULL,NULL,"2019-01-15 20:19:23"

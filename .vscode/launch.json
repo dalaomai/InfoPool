@@ -17,6 +17,13 @@
             "request": "launch",
             "program": "C:\\Code\\InfoPool\\testSet\\testSuite.py",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "infoPool 运行",
+            "type": "python",
+            "request": "launch",
+            "program": "C:\\Code\\InfoPool\\start.py",
+            "console": "integratedTerminal"
         }
     ]
 }

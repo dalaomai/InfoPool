@@ -1,7 +1,7 @@
 
 import unittest
 import sys
-print(sys.path)
+
 
 from testSet import *
 
