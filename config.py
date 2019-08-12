@@ -2,7 +2,7 @@
 
 import os
 import random
-MODEL = 'test' ##buile/test
+MODEL = 'test' ##build/test
 
 
 HtmlDownload_RETRY_TIME = 3  #HtmlDownload,网页源码下载重试次数
@@ -11,7 +11,7 @@ API_HOST = '127.0.0.1:8080' #API地址和端口
 #全局休眠时间
 __START_SLEEP_TIME ={
     'test':10,
-    'build':900
+    'build':43200
     }
 
 '''
@@ -25,7 +25,7 @@ __DB_CONFIG = {
                'db':'infopool',
                'type':'mysql'},
 
-    'build' : {'host':'123.207.30.13',
+    'build' : {'host':'www.dalaomai.cn',
                'port':3306,
                'user':'root',
                'password':'!Maizhiling456',
