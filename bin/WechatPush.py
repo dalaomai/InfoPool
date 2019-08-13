@@ -7,9 +7,7 @@ import json
 import random
 from datetime import datetime
 from config import WECHAT_CONFIG
-from common.CreateShortUrl import CreateShortUrl
-
-createShortUrl = CreateShortUrl()
+from common.ToolSet import createShortUrl
 
 class WechatPush():
     def __init__(self, *args, **kwargs):

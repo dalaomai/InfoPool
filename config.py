@@ -11,7 +11,7 @@ API_HOST = '127.0.0.1:8080' #API地址和端口
 #全局休眠时间
 __START_SLEEP_TIME ={
     'test':10,
-    'build':43200
+    'build':20000
     }
 
 '''

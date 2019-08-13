@@ -7,7 +7,7 @@ from time import sleep
 # from multiprocessing import Process
 import threading
 from bin import API
-
+from common.ToolSet import countDown
 
 ic = InfoCrawl()
 wp = WechatPush()
@@ -25,7 +25,7 @@ def spiderAndPusherRun():
         logger.info("####start the wechatPush####")
         wp.push()
         logger.info("####sleep " + str(START_SLEEP_TIME) + " seconds####")
-        sleep(START_SLEEP_TIME)
+        countDown(START_SLEEP_TIME)
 
 
 if __name__ == '__main__':
