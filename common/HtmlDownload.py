@@ -64,11 +64,14 @@ class HtmlDownload():
         logger.warning("download " + url + " failed")
         return -1
 
-    def dateDownload(self,url,nowTime = datetime.now()):
+    def dateDownload(self,url,nowTime = None):
         '''
+        nowTime 默认值None即当前时间
         按日期更新的url
         
         '''
+        if nowTime==None:
+            nowTime = datetime.now()
         url = EscapeTool.replace(url,r'\Y',nowTime.strftime("%Y"))  #替换年
         url = EscapeTool.replace(url,r'\m',nowTime.strftime("%m"))  #替换月
         url = EscapeTool.replace(url,r'\d',nowTime.strftime("%d"))  #替换日
